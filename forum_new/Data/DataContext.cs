@@ -10,6 +10,9 @@ namespace forum_new.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<Subforum> Subforums { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
@@ -72,6 +75,57 @@ namespace forum_new.Data
                 entity.Property(p => p.Content)
 
                 .HasColumnName("content");
+
+            });
+
+            modelBuilder.Entity<Vote>(entity =>
+            {
+
+                entity.ToTable("Vote");
+                entity.HasKey(p => p.Id).HasName("PK_Vote");
+
+                entity.Property(p => p.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(p => p.VoteType)
+
+                .HasColumnName("votetype");
+
+            });
+
+            modelBuilder.Entity<Subforum>(entity =>
+            {
+
+                entity.ToTable("Subforum");
+                entity.HasKey(p => p.Id).HasName("PK_Subforum");
+
+                entity.Property(p => p.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(p => p.Name)
+
+                .HasColumnName("name");
+
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+
+                entity.ToTable("Role");
+                entity.HasKey(p => p.Id).HasName("PK_Role");
+
+                entity.Property(p => p.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(p => p.RoleName)
+
+                .HasColumnName("rolename");
 
             });
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using forum_new.Data;
@@ -11,9 +12,11 @@ using forum_new.Data;
 namespace forum_new.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250706122815_Subforums")]
+    partial class Subforums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,26 +94,6 @@ namespace forum_new.Migrations
                         .HasName("PK_Post");
 
                     b.ToTable("Post", (string)null);
-                });
-
-            modelBuilder.Entity("forum_new.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("rolename");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Role");
-
-                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("forum_new.Entities.Subforum", b =>

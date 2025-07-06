@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using forum_new.Data;
@@ -11,9 +12,11 @@ using forum_new.Data;
 namespace forum_new.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250706121845_Votes")]
+    partial class Votes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,50 +96,6 @@ namespace forum_new.Migrations
                     b.ToTable("Post", (string)null);
                 });
 
-            modelBuilder.Entity("forum_new.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("rolename");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Role");
-
-                    b.ToTable("Role", (string)null);
-                });
-
-            modelBuilder.Entity("forum_new.Entities.Subforum", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Subforum");
-
-                    b.ToTable("Subforum", (string)null);
-                });
-
             modelBuilder.Entity("forum_new.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -184,6 +143,9 @@ namespace forum_new.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("PostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Rating")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
